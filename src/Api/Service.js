@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 // Create a  Axios instance with custom configuration
 const API = axios.create({
   baseURL: 'http://localhost:5000', // Centralized Server URL
