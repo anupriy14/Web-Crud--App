@@ -1,26 +1,21 @@
-import data from '../../db.json';
+import axios from 'axios';
 
-const API = {
-  get: async (url) => {
-    const cleanKey = url.replace(/^\//, '').split('?')[0].trim();
-    const result = data[cleanKey] || [];
-    return { data: result };
-  },
-  post: async (url, payload) => {
-    const cleanKey = url.replace(/^\//, '').trim();
-    if (data[cleanKey]) {
-      const newItem = { ...payload, id: payload.id || Date.now().toString() };
-      data[cleanKey].push(newItem);
-      return { data: newItem };
-    }
-    return { data: payload };
-  },
-  put: async (url, payload) => {
-    return { data: payload };
-  },
-  delete: async (url) => {
-    return { data: { success: true } };
+// Create a  Axios instance with custom configuration
+const API = axios.create({
+  baseURL: 'http://localhost:5000', // Centralized Server URL
+  timeout: 5000,                   
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
   }
-};
+});
+
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('Network Layer Exception:', error);
+    return Promise.reject(error);
+  }
+);
 
 export default API;
