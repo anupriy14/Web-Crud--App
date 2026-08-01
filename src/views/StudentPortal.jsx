@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import API from '../api/Service.js';
+import API from '../Api/Service.js';
 import CodeCanvas from '../components/CodeCanvas';
 
 function StudentPortal({ onAdminLogin }) {
